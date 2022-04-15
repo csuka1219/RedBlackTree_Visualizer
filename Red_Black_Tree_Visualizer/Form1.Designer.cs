@@ -45,7 +45,7 @@ namespace Red_Black_Tree_Visualizer
             this.Tbp_RedBlack.Location = new System.Drawing.Point(4, 25);
             this.Tbp_RedBlack.Name = "Tbp_RedBlack";
             this.Tbp_RedBlack.Padding = new System.Windows.Forms.Padding(3);
-            this.Tbp_RedBlack.Size = new System.Drawing.Size(1275, 577);
+            this.Tbp_RedBlack.Size = new System.Drawing.Size(1731, 721);
             this.Tbp_RedBlack.TabIndex = 0;
             this.Tbp_RedBlack.Text = "Red_Black_Tree";
             this.Tbp_RedBlack.UseVisualStyleBackColor = true;
@@ -63,7 +63,7 @@ namespace Red_Black_Tree_Visualizer
             this.tabControl1.Location = new System.Drawing.Point(2, 98);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1283, 606);
+            this.tabControl1.Size = new System.Drawing.Size(1739, 750);
             this.tabControl1.TabIndex = 0;
             // 
             // Btn_Insert
@@ -93,12 +93,13 @@ namespace Red_Black_Tree_Visualizer
             this.txt_Insert.Size = new System.Drawing.Size(160, 30);
             this.txt_Insert.TabIndex = 4;
             this.txt_Insert.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txt_Insert.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Insert_KeyDown);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1282, 703);
+            this.ClientSize = new System.Drawing.Size(1753, 703);
             this.Controls.Add(this.txt_Insert);
             this.Controls.Add(this.btn_Delete);
             this.Controls.Add(this.Btn_Insert);

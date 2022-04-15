@@ -98,33 +98,26 @@ namespace Red_Black_Tree_Visualizer
         }
         public void test(NodeModel _node)
         {
-            if (_node != _root && (_node.NodeLeftChild != _defaultNode || _node.NodeRightChild != _defaultNode))
+            if (_root.NodeLeftChild != _defaultNode) { _root.NodeLeftChild.Position = new Position() { X = -300, Y = 50 }; }
+            if (_root.NodeRightChild != _defaultNode) { _root.NodeRightChild.Position = new Position() { X = 300, Y = 50 }; }
+
+            if (_node != _root && _node != _root.NodeLeftChild && _node != _root.NodeRightChild)
             {
-                if (_node.Value < _root.Value)
+                if (_node.Value < _node.NodeParent.Value)
                 {
-                    _node.Position.X -= 50;
+                    _node.Position = new Position() { X = _node.NodeParent.Position.X - _root.NodeRightChild.Position.X / (_node.Level*2-_node.Level), Y = _node.NodeParent.Position.Y + 50 };
                 }
                 else
                 {
-                    _node.Position.X += 50;
+                    _node.Position = new Position() { X = _node.NodeParent.Position.X + _root.NodeRightChild.Position.X / (_node.Level*2-_node.Level), Y = _node.NodeParent.Position.Y + 50 };
                 }
             }
             if (_node.NodeLeftChild != _defaultNode)
             {
-                if (_node != _root)
-                {
-                    _node.NodeLeftChild.Position = new Position() { X = _node.Position.X - 30, Y = _node.Position.Y + 50 };
-                    _node.NodeRightChild.Position = new Position() { X = _node.Position.X + 30, Y = _node.Position.Y + 50 };
-                }
                 test(_node.NodeLeftChild);
             }
             if (_node.NodeRightChild != _defaultNode)
             {
-                if (_node != _root)
-                {
-                    _node.NodeLeftChild.Position = new Position() { X = _node.Position.X - 30, Y = _node.Position.Y + 50 };
-                    _node.NodeRightChild.Position = new Position() { X = _node.Position.X + 30, Y = _node.Position.Y + 50 };
-                }
                 test(_node.NodeRightChild);
             }
         }
@@ -211,7 +204,7 @@ namespace Red_Black_Tree_Visualizer
             {
                 _nodeHelper.Position = new Position() { X = 0, Y = 0 };
                 _root = _nodeHelper;
-                qwe=true;
+                qwe = true;
             }
             else
             {
@@ -237,13 +230,13 @@ namespace Red_Black_Tree_Visualizer
             IncreaseLevel(_node.NodeLeftChild);
             asd(_nodeHelper.NodeRightChild);
             asd(_nodeHelper.NodeLeftChild);
-            if(qwe)
+            if (qwe)
             {
                 _root.NodeLeftChild.Position.X -= 80;
                 _root.NodeRightChild.Position.X += 80;
             }
-                asd2(_root.NodeLeftChild);
-                asd2(_root.NodeRightChild);
+            asd2(_root.NodeLeftChild);
+            asd2(_root.NodeRightChild);
 
         }
         public void asd2(NodeModel _node)

@@ -18,6 +18,8 @@ namespace Red_Black_Tree_Visualizer
         public Form1()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.tabControl1.Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
         }
 
 
@@ -28,18 +30,44 @@ namespace Red_Black_Tree_Visualizer
                 Dock = DockStyle.Fill
             };
 
-            //_avlTree = new AVLTree<int>(new TreeConfiguration(circleDiameter: 45, arrowAnchorSize: 5));
-
             Tbp_RedBlack.Controls.Add(RedBlackBox);
         }
         private void Btn_Insert_Click(object sender, EventArgs e)
         {
-            //NodeModel newNode = new NodeModel { Value = Convert.ToDouble(txt_Insert.Text), Is_Red = true, Level = 1,Index=1 };
-            //NodeManager qwe = new NodeManager();
-            //NodeManager.Record(Convert.ToDouble(txt_Insert.Text));
+            if (string.IsNullOrEmpty(txt_Insert.Text))
+            {
+                MessageBox.Show("You didn't add any number", "Warning");
+                return;
+            }
+            if (!int.TryParse(txt_Insert.Text, out int value))
+            {
+                MessageBox.Show("You can only add numbers to the tree", "Error");
+                return;
+            }
             _nodeManager.Record(Convert.ToDouble(txt_Insert.Text));
-            var asd = _nodeManager.Get();
             RedBlackBox.Print();
+            txt_Insert.Text = "";
+        }
+
+        private void txt_Insert_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrEmpty(txt_Insert.Text))
+                {
+                    MessageBox.Show("You didn't add any number","Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!int.TryParse(txt_Insert.Text, out int check))
+                {
+                    MessageBox.Show("You can only add numbers to the tree", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                _nodeManager.Record(Convert.ToDouble(txt_Insert.Text));
+                RedBlackBox.Print();
+                txt_Insert.Text = "";
+            }
+
         }
     }
 }

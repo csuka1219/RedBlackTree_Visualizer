@@ -16,10 +16,7 @@ namespace Red_Black_Tree_Visualizer
         private static NodeModel _defaultNode = new NodeModel();
         public VisualizationBox()
         {
-            SetStyle(
-                ControlStyles.OptimizedDoubleBuffer |
-                ControlStyles.DoubleBuffer,
-                true);
+
         }
         public void Print()
         {
