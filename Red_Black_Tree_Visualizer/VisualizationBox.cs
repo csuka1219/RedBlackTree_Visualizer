@@ -44,53 +44,68 @@ namespace Red_Black_Tree_Visualizer
 
             if (_node.NodeLeftChild != _defaultNode)
             {
-                DrawConnectionArrow(_node.Position, _node.NodeLeftChild.Position, _offset, pe.Graphics);
+                DrawLine(_node.Position, _node.NodeLeftChild.Position, _offset, pe.Graphics,_node.Level);
                 GetNodeFromTree(_node.NodeLeftChild, _offset, pe);
             }
             if (_node.NodeRightChild!= _defaultNode)
             {
-                DrawConnectionArrow(_node.Position, _node.NodeRightChild.Position, _offset, pe.Graphics);
+                DrawLine(_node.Position, _node.NodeRightChild.Position, _offset, pe.Graphics,_node.Level);
                 GetNodeFromTree(_node.NodeRightChild, _offset, pe);
             }
         }
-        private void DrawConnectionArrow(Position fromNodePosition, Position toNodePosition, int offset, Graphics grapics)
+        private void DrawLine(Position fromNodePosition, Position toNodePosition, int offset, Graphics grapics,int a)
         {
             Pen linePen = new Pen(Color.Black, 1);
-            var startPoint = new Point
+            Point _startPoint;
+            Point _endPoint;
+            if (fromNodePosition.X < toNodePosition.X)
             {
-                X = fromNodePosition.X + 45 / 2 + offset,
-                Y = fromNodePosition.Y + 45 / 2
-            };
-            var endPoint = new Point
+                _startPoint = new Point
+                {
+                    X = fromNodePosition.X + 45 / 2 + offset+23-a,
+                    Y = fromNodePosition.Y + 45 / 2 +(fromNodePosition.Y/10)
+                };
+                _endPoint = new Point
+                {
+                    X = toNodePosition.X + 45 / 2 + offset,
+                    Y = toNodePosition.Y + 45 / 2
+                };
+
+            }
+            else
             {
-                X = toNodePosition.X + 45 / 2 + offset,
-                Y = toNodePosition.Y + 45 / 2
-            };
+                _startPoint = new Point
+                {
+                    X = fromNodePosition.X + 45 / 2 + offset - 23 + a,
+                    Y = fromNodePosition.Y + 45 / 2 + (fromNodePosition.Y / 10)
+                };
+                _endPoint = new Point
+                {
+                    X = toNodePosition.X + 45 / 2 + offset,
+                    Y = toNodePosition.Y + 45 / 2
+                };
+            }
             grapics.DrawLine(
                 linePen,
-                startPoint,
-                CalculatePoint(startPoint, endPoint, GetDistance(startPoint, endPoint))
+                _startPoint,
+                CalculatePoint(_startPoint, _endPoint, GetDistance(_startPoint, _endPoint))
             );
         }
-        public Point CalculatePoint(Point a, Point b, double distance)
+        public Point CalculatePoint(Point _startPoint, Point _endPoint, double distance)
         {
-            // a. calculate the vector from o to g:
-            double vectorX = b.X - a.X;
-            double vectorY = b.Y - a.Y;
+            double vector_X = _endPoint.X - _startPoint.X;
+            double vector_Y = _endPoint.Y - _startPoint.Y;
 
-            // b. calculate the proportion of hypotenuse
-            double factor = distance / Math.Sqrt(vectorX * vectorX + vectorY * vectorY);
+            double factor = distance / Math.Sqrt(vector_X * vector_X + vector_Y * vector_Y);
 
-            // c. factor the lengths
-            vectorX *= factor;
-            vectorY *= factor;
+            vector_X *= factor;
+            vector_Y *= factor;
 
-            // d. calculate and Draw the new vector,
-            return new Point((int)(a.X + vectorX), (int)(a.Y + vectorY));
+            return new Point((int)(_startPoint.X + vector_X), (int)(_startPoint.Y + vector_Y));
         }
-        public double GetDistance(Point a, Point b)
+        public double GetDistance(Point _startPoint, Point _endPoint)
         {
-            return Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
+            return Math.Sqrt(Math.Pow(_endPoint.X - _startPoint.X, 2) + Math.Pow(_endPoint.Y - _startPoint.Y, 2));
         }
         public void DrawNode(NodeModel node, int offset, Graphics grapics)
         {
@@ -111,26 +126,15 @@ namespace Red_Black_Tree_Visualizer
                 45
                 );
 
-            var stringSize = grapics.MeasureString(node.Value.ToString(), DefaultFont);
+            SizeF ValueFontSize = grapics.MeasureString(node.Value.ToString(), DefaultFont);
 
             grapics.DrawString(
                 node.Value.ToString(),
                 DefaultFont,
                 new SolidBrush(Color.Black),
-                node.Position.X + (45 / 2) - (stringSize.Width / 2) + 1 + offset,
-                node.Position.Y + (45 / 2) - (stringSize.Height / 2) + 1
+                node.Position.X + (45 / 2) - (ValueFontSize.Width / 2) + 1 + offset,
+                node.Position.Y + (45 / 2) - (ValueFontSize.Height / 2) + 1
                 );
-
-            //if (node.IsAvlNode)
-            //{
-            //    grapics.DrawString(
-            //        node.Height.ToString(),
-            //        new Font(DefaultFont.FontFamily, 7f),
-            //        PensAndStuff.TextBrush,
-            //        node.IsLeftChild ? node.Position.X - 8f + offset : node.Position.X + _configuration.CircleDiameter + offset,
-            //        node.Position.Y
-            //        );
-            //}
         }
 
     }
