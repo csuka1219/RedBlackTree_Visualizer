@@ -12,9 +12,9 @@ C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\bin\Debug\Red_Black_Tree_Visualizer.exe
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\bin\Debug\Red_Black_Tree_Visualizer.pdb
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.csproj.AssemblyReference.cache
-C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.Form1.resources
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.Properties.Resources.resources
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.csproj.GenerateResource.cache
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.csproj.CoreCompileInputs.cache
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.exe
 C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.pdb
+C:\Users\Balázs\source\repos\Red_Black_Tree_Visualizer\RedBlackTree_Visualizer\Red_Black_Tree_Visualizer\obj\Debug\Red_Black_Tree_Visualizer.MainForm.resources

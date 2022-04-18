@@ -56,9 +56,6 @@ namespace Red_Black_Tree_Visualizer
         private void DrawConnectionArrow(Position fromNodePosition, Position toNodePosition, int offset, Graphics grapics)
         {
             Pen linePen = new Pen(Color.Black, 1);
-            //{
-            //    CustomEndCap = new CustomLineCap(null, capPath, LineCap.ArrowAnchor)
-            //};
             var startPoint = new Point
             {
                 X = fromNodePosition.X + 45 / 2 + offset,

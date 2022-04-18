@@ -41,11 +41,12 @@ namespace Red_Black_Tree_Visualizer
                 else
                 {
                     if (_newNode.Value > _rootHelper.Value)
+                    {
                         _rootHelper = _rootHelper.NodeRightChild;
+                    }
                     else return;
                 }
             }
-
             _newNode.NodeParent = _nodeHelper;
 
             if (_nodeHelper == _defaultNode)
@@ -71,70 +72,9 @@ namespace Red_Black_Tree_Visualizer
             if (_newNode.NodeParent != _defaultNode)
             {
                 _newNode.Level = _newNode.NodeParent.Level + 1;
-                //if ((_newNode.NodeParent.NodeLeftChild != _defaultNode || _newNode.NodeParent.NodeRightChild != _defaultNode) && _newNode.NodeParent.Value < _newNode.NodeParent.NodeParent.Value)
-                //{
-                //    _newNode.NodeParent.Position.X -= 50;
-                //    _newNode.NodeParent.NodeLeftChild.Position = new Position() { X = _newNode.NodeParent.Position.X - 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                //    _newNode.NodeParent.NodeRightChild.Position = new Position() { X = _newNode.NodeParent.Position.X + 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                //}
-                //else if((_newNode.NodeParent.NodeLeftChild != _defaultNode || _newNode.NodeParent.NodeRightChild != _defaultNode)&& _newNode.NodeParent != _root)
-                //{
-                //    _newNode.NodeParent.Position.X += 50;
-                //    _newNode.NodeParent.NodeLeftChild.Position = new Position() { X = _newNode.NodeParent.Position.X - 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                //    _newNode.NodeParent.NodeRightChild.Position = new Position() { X = _newNode.NodeParent.Position.X + 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                //}
-                if (_newNode.Value < _nodeHelper.Value)
-                {
-                    _newNode.Position = new Position() { X = _newNode.NodeParent.Position.X - 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                }
-                else
-                {
-                    _newNode.Position = new Position() { X = _newNode.NodeParent.Position.X + 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                }
             }
             ReDrawTree(_newNode);
-            asd(_newNode);
-            test(_root);
-        }
-        public void test(NodeModel _node)
-        {
-            if (_root.NodeLeftChild != _defaultNode) { _root.NodeLeftChild.Position = new Position() { X = -300, Y = 50 }; }
-            if (_root.NodeRightChild != _defaultNode) { _root.NodeRightChild.Position = new Position() { X = 300, Y = 50 }; }
-
-            if (_node != _root && _node != _root.NodeLeftChild && _node != _root.NodeRightChild)
-            {
-                if (_node.Value < _node.NodeParent.Value)
-                {
-                    _node.Position = new Position() { X = _node.NodeParent.Position.X - _root.NodeRightChild.Position.X / (_node.Level*2-_node.Level), Y = _node.NodeParent.Position.Y + 50 };
-                }
-                else
-                {
-                    _node.Position = new Position() { X = _node.NodeParent.Position.X + _root.NodeRightChild.Position.X / (_node.Level*2-_node.Level), Y = _node.NodeParent.Position.Y + 50 };
-                }
-            }
-            if (_node.NodeLeftChild != _defaultNode)
-            {
-                test(_node.NodeLeftChild);
-            }
-            if (_node.NodeRightChild != _defaultNode)
-            {
-                test(_node.NodeRightChild);
-            }
-        }
-        public void asd(NodeModel _newNode)
-        {
-            if ((_newNode.NodeParent.NodeLeftChild != _defaultNode || _newNode.NodeParent.NodeRightChild != _defaultNode) && _newNode.NodeParent.Value < _newNode.NodeParent.NodeParent.Value)
-            {
-                _newNode.NodeParent.Position.X -= 50;
-                _newNode.NodeParent.NodeLeftChild.Position = new Position() { X = _newNode.NodeParent.Position.X - 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                _newNode.NodeParent.NodeRightChild.Position = new Position() { X = _newNode.NodeParent.Position.X + 30, Y = _newNode.NodeParent.Position.Y + 50 };
-            }
-            else if ((_newNode.NodeParent.NodeLeftChild != _defaultNode || _newNode.NodeParent.NodeRightChild != _defaultNode) && _newNode.NodeParent != _root)
-            {
-                _newNode.NodeParent.Position.X += 50;
-                _newNode.NodeParent.NodeLeftChild.Position = new Position() { X = _newNode.NodeParent.Position.X - 30, Y = _newNode.NodeParent.Position.Y + 50 };
-                _newNode.NodeParent.NodeRightChild.Position = new Position() { X = _newNode.NodeParent.Position.X + 30, Y = _newNode.NodeParent.Position.Y + 50 };
-            }
+            SetPosition(_root);
         }
         private void ReDrawTree(NodeModel _newNode)
         {
@@ -191,7 +131,6 @@ namespace Red_Black_Tree_Visualizer
         }
         private void RotateLeft(NodeModel _node)
         {
-            bool qwe = false;
             NodeModel _nodeHelper = _node.NodeRightChild;
             _node.NodeRightChild = _nodeHelper.NodeLeftChild;
             if (_nodeHelper.NodeLeftChild != _defaultNode)
@@ -202,62 +141,30 @@ namespace Red_Black_Tree_Visualizer
             _nodeHelper.NodeParent = _node.NodeParent;
             if (_node.NodeParent == _defaultNode)
             {
-                _nodeHelper.Position = new Position() { X = 0, Y = 0 };
                 _root = _nodeHelper;
-                qwe = true;
             }
             else
             {
                 if (_node == _node.NodeParent.NodeLeftChild)
                 {
-                    _nodeHelper.Position = new Position() { X = _nodeHelper.NodeParent.Position.X - 30, Y = _nodeHelper.NodeParent.Position.Y + 50 };
                     _node.NodeParent.NodeLeftChild = _nodeHelper;
                 }
                 else
                 {
-                    _nodeHelper.Position = new Position() { X = _nodeHelper.NodeParent.Position.X + 30, Y = _nodeHelper.NodeParent.Position.Y + 50 };
                     _node.NodeParent.NodeRightChild = _nodeHelper;
                 }
             }
             _nodeHelper.NodeLeftChild = _node;
 
-            _nodeHelper.NodeLeftChild.Position = new Position() { X = _nodeHelper.Position.X - 30, Y = _nodeHelper.Position.Y + 50 };
             _node.NodeParent = _nodeHelper;
 
             _node.Level += 1;
             _nodeHelper.Level -= 1;
             DecreaseLevel(_nodeHelper.NodeRightChild);
             IncreaseLevel(_node.NodeLeftChild);
-            asd(_nodeHelper.NodeRightChild);
-            asd(_nodeHelper.NodeLeftChild);
-            if (qwe)
-            {
-                _root.NodeLeftChild.Position.X -= 80;
-                _root.NodeRightChild.Position.X += 80;
-            }
-            asd2(_root.NodeLeftChild);
-            asd2(_root.NodeRightChild);
-
-        }
-        public void asd2(NodeModel _node)
-        {
-
-            if (_node.NodeLeftChild != _defaultNode)
-            {
-                _node.NodeLeftChild.Position = new Position() { X = _node.Position.X - 30, Y = _node.Position.Y + 50 };
-                _node.NodeRightChild.Position = new Position() { X = _node.Position.X + 30, Y = _node.Position.Y + 50 };
-                asd2(_node.NodeLeftChild);
-            }
-            if (_node.NodeRightChild != _defaultNode)
-            {
-                _node.NodeLeftChild.Position = new Position() { X = _node.Position.X - 30, Y = _node.Position.Y + 50 };
-                _node.NodeRightChild.Position = new Position() { X = _node.Position.X + 30, Y = _node.Position.Y + 50 };
-                asd2(_node.NodeRightChild);
-            }
         }
         private void RotateRight(NodeModel _node)
         {
-            bool qwe = false;
             NodeModel _nodeHelper = _node.NodeLeftChild;
             _node.NodeLeftChild = _nodeHelper.NodeRightChild;
             if (_nodeHelper.NodeRightChild != _defaultNode)
@@ -268,40 +175,26 @@ namespace Red_Black_Tree_Visualizer
             _nodeHelper.NodeParent = _node.NodeParent;
             if (_node.NodeParent == _defaultNode)
             {
-                _nodeHelper.Position = new Position() { X = 0, Y = 0 };
                 _root = _nodeHelper;
-                qwe = true;
             }
             else
             {
                 if (_node == _node.NodeParent.NodeRightChild)
                 {
-                    _nodeHelper.Position = new Position() { X = _nodeHelper.NodeParent.Position.X + 30, Y = _nodeHelper.NodeParent.Position.Y + 50 };
                     _node.NodeParent.NodeRightChild = _nodeHelper;
                 }
                 else
                 {
-                    _nodeHelper.Position = new Position() { X = _nodeHelper.NodeParent.Position.X - 30, Y = _nodeHelper.NodeParent.Position.Y + 50 };
                     _node.NodeParent.NodeLeftChild = _nodeHelper;
                 }
             }
             _nodeHelper.NodeRightChild = _node;
-            _nodeHelper.NodeRightChild.Position = new Position() { X = _nodeHelper.Position.X + 30, Y = _nodeHelper.Position.Y + 50 };
             _node.NodeParent = _nodeHelper;
 
             _nodeHelper.Level -= 1;
             _node.Level += 1;
             DecreaseLevel(_nodeHelper.NodeLeftChild);
             IncreaseLevel(_node.NodeRightChild);
-            asd(_node);
-            if (qwe)
-            {
-                _root.NodeLeftChild.Position.X -= 50;
-                _root.NodeRightChild.Position.X += 50;
-            }
-            asd2(_root.NodeLeftChild);
-            asd2(_root.NodeRightChild);
-
         }
 
         private void IncreaseLevel(NodeModel _node)
@@ -309,14 +202,6 @@ namespace Red_Black_Tree_Visualizer
             if (_node != _defaultNode && _node != _root)
             {
                 _node.Level += 1;
-                if (_node.NodeParent.NodeLeftChild == _node)
-                {
-                    _node.Position = new Position() { X = _node.NodeParent.Position.X - 30, Y = _node.NodeParent.Position.Y + 50 };
-                }
-                else
-                {
-                    _node.Position = new Position() { X = _node.NodeParent.Position.X + 30, Y = _node.NodeParent.Position.Y + 50 };
-                }
                 IncreaseLevel(_node.NodeLeftChild);
                 IncreaseLevel(_node.NodeRightChild);
             }
@@ -326,17 +211,105 @@ namespace Red_Black_Tree_Visualizer
             if (_node != _defaultNode)
             {
                 _node.Level -= 1;
-                if (_node.NodeParent.NodeLeftChild == _node)
-                {
-                    _node.Position = new Position() { X = _node.NodeParent.Position.X - 30, Y = _node.NodeParent.Position.Y + 50 };
-                }
-                else
-                {
-                    _node.Position = new Position() { X = _node.NodeParent.Position.X + 30, Y = _node.NodeParent.Position.Y + 50 };
-                }
                 DecreaseLevel(_node.NodeLeftChild);
                 DecreaseLevel(_node.NodeRightChild);
             }
+        }
+        public void SetPosition(NodeModel _node)
+        {
+            if (_root.NodeLeftChild != _defaultNode) { _root.NodeLeftChild.Position = new Position() { X = -300, Y = 50 }; }
+            if (_root.NodeRightChild != _defaultNode) { _root.NodeRightChild.Position = new Position() { X = 300, Y = 50 }; }
+
+            if (_node != _root && _node != _root.NodeLeftChild && _node != _root.NodeRightChild)
+            {
+                if (_node.Value < _node.NodeParent.Value)
+                {
+                    _node.Position = new Position() { X = _node.NodeParent.Position.X - _root.NodeRightChild.Position.X / (_node.Level * 2 - _node.Level), Y = _node.NodeParent.Position.Y + 50 };
+                }
+                else
+                {
+                    _node.Position = new Position() { X = _node.NodeParent.Position.X + _root.NodeRightChild.Position.X / (_node.Level * 2 - _node.Level), Y = _node.NodeParent.Position.Y + 50 };
+                }
+            }
+            if (_node.NodeLeftChild != _defaultNode)
+            {
+                SetPosition(_node.NodeLeftChild);
+            }
+            if (_node.NodeRightChild != _defaultNode)
+            {
+                SetPosition(_node.NodeRightChild);
+            }
+        }
+        //TODO Delete from tree
+        public NodeModel GetDeletableNode(double value, NodeModel _node)
+        {
+            NodeModel _defaultReturnValue = _defaultNode;
+            if (value == _node.Value) return _node;
+            if (_node != _defaultNode)
+            {
+                if (value < _node.Value)
+                {
+                    _defaultReturnValue = GetDeletableNode(value, _node.NodeLeftChild);
+                }
+                else
+                {
+                    _defaultReturnValue = GetDeletableNode(value, _node.NodeRightChild);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The tree does not included this number!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return _defaultReturnValue;
+        }
+        private void DeleteNode(double value)
+        {
+            NodeModel _deletableNode = GetDeletableNode(value, _root);
+            if (_deletableNode == _defaultNode) return;
+            bool is_Root = false;
+            if (_deletableNode == _root)
+            {
+                is_Root = true;
+            }
+            NodeModel _nodehelper = _deletableNode.NodeLeftChild;
+            if (_nodehelper.NodeRightChild == _defaultNode)
+            {
+                _nodehelper.Level -= 1;
+                _nodehelper.NodeParent = _deletableNode.NodeParent;
+                _nodehelper.NodeRightChild = _deletableNode.NodeRightChild;
+                _nodehelper.NodeLeftChild = _defaultNode;
+                _nodehelper.NodeParent.NodeRightChild = _nodehelper;
+
+                RotateLeft(_nodehelper);
+            }
+            else
+            {
+                while (_nodehelper.NodeRightChild != _defaultNode)
+                {
+                    _nodehelper = _nodehelper.NodeRightChild;
+                }
+
+                _deletableNode.Value = _nodehelper.Value;
+                _nodehelper.NodeParent.NodeRightChild = _defaultNode;
+                if (is_Root)
+                {
+                    RotateRight(_deletableNode.NodeLeftChild);
+                    _deletableNode.NodeLeftChild.NodeRightChild.NodeColor = NodeColor.black;
+                    _deletableNode.NodeLeftChild.NodeColor = NodeColor.red;
+                    _deletableNode.NodeLeftChild.NodeLeftChild.NodeColor = NodeColor.black;
+                    if (_deletableNode.NodeLeftChild.NodeLeftChild.NodeLeftChild != _defaultNode || _deletableNode.NodeLeftChild.NodeLeftChild.NodeRightChild != _defaultNode)
+                    {
+                        _deletableNode.NodeLeftChild.NodeColor = NodeColor.black;
+                    }
+                    if (_deletableNode.NodeLeftChild.NodeRightChild.NodeLeftChild.NodeRightChild != _defaultNode && _deletableNode.NodeLeftChild.NodeRightChild.NodeLeftChild.NodeLeftChild == _defaultNode)
+                    {
+                        RotateLeft(_deletableNode.NodeLeftChild.NodeRightChild.NodeLeftChild);
+                        RotateRight(_deletableNode.NodeLeftChild.NodeRightChild);
+                    }
+                }
+            }
+            _root.Position = new Position() { X = 0, Y = 0 };
+            SetPosition(_root);
         }
         public NodeModel Get()
         {

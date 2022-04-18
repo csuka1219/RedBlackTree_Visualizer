@@ -1,7 +1,7 @@
 ﻿
 namespace Red_Black_Tree_Visualizer
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -33,8 +33,8 @@ namespace Red_Black_Tree_Visualizer
             this.printPreviewControl1 = new System.Windows.Forms.PrintPreviewControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Btn_Insert = new System.Windows.Forms.Button();
-            this.btn_Delete = new System.Windows.Forms.Button();
-            this.txt_Insert = new System.Windows.Forms.TextBox();
+            this.Btn_Delete = new System.Windows.Forms.Button();
+            this.Txt_Value = new System.Windows.Forms.TextBox();
             this.Tbp_RedBlack.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
@@ -76,36 +76,37 @@ namespace Red_Black_Tree_Visualizer
             this.Btn_Insert.UseVisualStyleBackColor = true;
             this.Btn_Insert.Click += new System.EventHandler(this.Btn_Insert_Click);
             // 
-            // btn_Delete
+            // Btn_Delete
             // 
-            this.btn_Delete.Location = new System.Drawing.Point(362, 37);
-            this.btn_Delete.Name = "btn_Delete";
-            this.btn_Delete.Size = new System.Drawing.Size(126, 30);
-            this.btn_Delete.TabIndex = 3;
-            this.btn_Delete.Text = "Delete";
-            this.btn_Delete.UseVisualStyleBackColor = true;
+            this.Btn_Delete.Location = new System.Drawing.Point(362, 37);
+            this.Btn_Delete.Name = "Btn_Delete";
+            this.Btn_Delete.Size = new System.Drawing.Size(126, 30);
+            this.Btn_Delete.TabIndex = 3;
+            this.Btn_Delete.Text = "Delete";
+            this.Btn_Delete.UseVisualStyleBackColor = true;
+            this.Btn_Delete.Click += new System.EventHandler(this.Btn_Delete_Click);
             // 
-            // txt_Insert
+            // Txt_Value
             // 
-            this.txt_Insert.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_Insert.Location = new System.Drawing.Point(12, 37);
-            this.txt_Insert.Name = "txt_Insert";
-            this.txt_Insert.Size = new System.Drawing.Size(160, 30);
-            this.txt_Insert.TabIndex = 4;
-            this.txt_Insert.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txt_Insert.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Insert_KeyDown);
+            this.Txt_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Txt_Value.Location = new System.Drawing.Point(12, 37);
+            this.Txt_Value.Name = "Txt_Value";
+            this.Txt_Value.Size = new System.Drawing.Size(160, 30);
+            this.Txt_Value.TabIndex = 4;
+            this.Txt_Value.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.Txt_Value.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txt_Insert_KeyDown);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1753, 703);
-            this.Controls.Add(this.txt_Insert);
-            this.Controls.Add(this.btn_Delete);
+            this.Controls.Add(this.Txt_Value);
+            this.Controls.Add(this.Btn_Delete);
             this.Controls.Add(this.Btn_Insert);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.Text = "Red-black tree";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Tbp_RedBlack.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -120,8 +121,8 @@ namespace Red_Black_Tree_Visualizer
         private System.Windows.Forms.PrintPreviewControl printPreviewControl1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Button Btn_Insert;
-        private System.Windows.Forms.Button btn_Delete;
-        private System.Windows.Forms.TextBox txt_Insert;
+        private System.Windows.Forms.Button Btn_Delete;
+        private System.Windows.Forms.TextBox Txt_Value;
     }
 }
 
