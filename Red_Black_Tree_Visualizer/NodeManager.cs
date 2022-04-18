@@ -241,7 +241,7 @@ namespace Red_Black_Tree_Visualizer
             }
         }
         //TODO Delete from tree
-        public NodeModel GetDeletableNode(double value, NodeModel _node)
+        private NodeModel GetDeletableNode(double value, NodeModel _node)
         {
             NodeModel _defaultReturnValue = _defaultNode;
             if (value == _node.Value) return _node;
@@ -262,7 +262,7 @@ namespace Red_Black_Tree_Visualizer
             }
             return _defaultReturnValue;
         }
-        private void DeleteNode(double value)
+        public void DeleteNode(double value)
         {
             NodeModel _deletableNode = GetDeletableNode(value, _root);
             if (_deletableNode == _defaultNode) return;
