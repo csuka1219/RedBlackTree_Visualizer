@@ -266,50 +266,144 @@ namespace Red_Black_Tree_Visualizer
         {
             NodeModel _deletableNode = GetDeletableNode(value, _root);
             if (_deletableNode == _defaultNode) return;
-            bool is_Root = false;
-            if (_deletableNode == _root)
-            {
-                is_Root = true;
-            }
-            NodeModel _nodehelper = _deletableNode.NodeLeftChild;
-            if (_nodehelper.NodeRightChild == _defaultNode)
-            {
-                _nodehelper.Level -= 1;
-                _nodehelper.NodeParent = _deletableNode.NodeParent;
-                _nodehelper.NodeRightChild = _deletableNode.NodeRightChild;
-                _nodehelper.NodeLeftChild = _defaultNode;
-                _nodehelper.NodeParent.NodeRightChild = _nodehelper;
+            NodeModel item = _deletableNode;
+            NodeModel X = _defaultNode;
+            NodeModel Y = _defaultNode;
 
-                RotateLeft(_nodehelper);
+            if (item.NodeLeftChild == _defaultNode|| item.NodeRightChild== _defaultNode)
+            {
+                Y = item;
             }
             else
             {
-                while (_nodehelper.NodeRightChild != _defaultNode)
-                {
-                    _nodehelper = _nodehelper.NodeRightChild;
-                }
+                Y = TreeSuccessor(item);
+            }
+            if (Y.NodeLeftChild != _defaultNode)
+            {
+                X = Y.NodeLeftChild;
+            }
+            else
+            {
+                X = Y.NodeRightChild;
+            }
+            if (X != _defaultNode)
+            {
+                X.NodeParent= Y;
+            }
+            if (Y.NodeParent == _defaultNode)
+            {
+                _root = X;
+            }
+            else if (Y == Y.NodeParent.NodeLeftChild)
+            {
+                Y.NodeParent.NodeLeftChild= X;
+            }
+            else
+            {
+                Y.NodeParent.NodeLeftChild= X;
+            }
+            if (Y != item)
+            {
+                item.Value= Y.Value;
+            }
+            X.NodeColor = NodeColor.black;
+                DeleteFixUp(X);
+            SetPosition(_root);
+        }
 
-                _deletableNode.Value = _nodehelper.Value;
-                _nodehelper.NodeParent.NodeRightChild = _defaultNode;
-                if (is_Root)
+        private void DeleteFixUp(NodeModel X)
+        {
+
+            while (X != _defaultNode && X != _root && X.NodeColor == NodeColor.black)
+            {
+                if (X == X.NodeParent.NodeLeftChild)
                 {
-                    RotateRight(_deletableNode.NodeLeftChild);
-                    _deletableNode.NodeLeftChild.NodeRightChild.NodeColor = NodeColor.black;
-                    _deletableNode.NodeLeftChild.NodeColor = NodeColor.red;
-                    _deletableNode.NodeLeftChild.NodeLeftChild.NodeColor = NodeColor.black;
-                    if (_deletableNode.NodeLeftChild.NodeLeftChild.NodeLeftChild != _defaultNode || _deletableNode.NodeLeftChild.NodeLeftChild.NodeRightChild != _defaultNode)
+                    NodeModel W = X.NodeParent.NodeRightChild;
+                    if (W.NodeColor == NodeColor.red)
                     {
-                        _deletableNode.NodeLeftChild.NodeColor = NodeColor.black;
+                        W.NodeColor = NodeColor.black; //case 1
+                        X.NodeParent.NodeColor = NodeColor.red; //case 1
+                        RotateLeft(X.NodeParent); //case 1
+                        W = X.NodeParent.NodeRightChild; //case 1
                     }
-                    if (_deletableNode.NodeLeftChild.NodeRightChild.NodeLeftChild.NodeRightChild != _defaultNode && _deletableNode.NodeLeftChild.NodeRightChild.NodeLeftChild.NodeLeftChild == _defaultNode)
+                    if (W.NodeLeftChild.NodeColor == NodeColor.black && W.NodeRightChild.NodeColor == NodeColor.black)
                     {
-                        RotateLeft(_deletableNode.NodeLeftChild.NodeRightChild.NodeLeftChild);
-                        RotateRight(_deletableNode.NodeLeftChild.NodeRightChild);
+                        W.NodeColor = NodeColor.red; //case 2
+                        X = X.NodeParent; //case 2
                     }
+                    else if (W.NodeRightChild.NodeColor == NodeColor.black)
+                    {
+                        W.NodeLeftChild.NodeColor = NodeColor.black; //case 3
+                        W.NodeColor = NodeColor.red; //case 3
+                        RotateRight(W); //case 3
+                        W = X.NodeParent.NodeRightChild; //case 3
+                    }
+                    W.NodeColor = X.NodeParent.NodeColor; //case 4
+                    X.NodeParent.NodeColor = NodeColor.black; //case 4
+                    W.NodeRightChild.NodeColor = NodeColor.black; //case 4
+                    RotateLeft(X.NodeParent); //case 4
+                    X = _root; //case 4
+                }
+                else //mirror code from above with "NodeRightChild" & "left" exchanged
+                {
+                    NodeModel W = X.NodeParent.NodeLeftChild;
+                    if (W.NodeColor == NodeColor.red)
+                    {
+                        W.NodeColor = NodeColor.black;
+                        X.NodeParent.NodeColor = NodeColor.red;
+                        RotateRight(X.NodeParent);
+                        W = X.NodeParent.NodeLeftChild;
+                    }
+                    if (W.NodeRightChild.NodeColor == NodeColor.black && W.NodeLeftChild.NodeColor == NodeColor.black)
+                    {
+                        W.NodeColor = NodeColor.black;
+                        X = X.NodeParent;
+                    }
+                    else if (W.NodeLeftChild.NodeColor == NodeColor.black)
+                    {
+                        W.NodeRightChild.NodeColor = NodeColor.black;
+                        W.NodeColor = NodeColor.red;
+                        RotateLeft(W);
+                        W = X.NodeParent.NodeLeftChild;
+                    }
+                    W.NodeColor = X.NodeParent.NodeColor;
+                    X.NodeParent.NodeColor = NodeColor.black;
+                    W.NodeLeftChild.NodeColor = NodeColor.black;
+                    RotateRight(X.NodeParent);
+                    X = _root;
                 }
             }
-            _root.Position = new Position() { X = 0, Y = 0 };
-            SetPosition(_root);
+            if (X != _defaultNode)
+                X.NodeColor = NodeColor.black;
+        }
+        private NodeModel Minimum(NodeModel X)
+        {
+            while (X.NodeLeftChild.NodeLeftChild != _defaultNode)
+            {
+                X = X.NodeLeftChild;
+            }
+            if (X.NodeLeftChild.NodeRightChild != _defaultNode)
+            {
+                X = X.NodeLeftChild.NodeRightChild;
+            }
+            return X;
+        }
+        private NodeModel TreeSuccessor(NodeModel X)
+        {
+            if (X.NodeLeftChild != _defaultNode)
+            {
+                return Minimum(X);
+            }
+            else
+            {
+                NodeModel Y = X.NodeParent;
+                while (Y != _defaultNode && X == Y.NodeRightChild)
+                {
+                    X = Y;
+                    Y = Y.NodeParent;
+                }
+                return Y;
+            }
         }
         public NodeModel Get()
         {

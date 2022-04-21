@@ -92,8 +92,8 @@ namespace Red_Black_Tree_Visualizer
         //TODO
         private void Btn_Delete_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This function is not available yet!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            return;
+            //MessageBox.Show("This function is not available yet!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //return;
             if (string.IsNullOrEmpty(Txt_Value.Text))
             {
                 MessageBox.Show("You didn't add any number!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
